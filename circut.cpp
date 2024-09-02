@@ -113,7 +113,7 @@ std::vector<std::vector<double>> SolveForCurrent(std::vector<std::vector<double>
     return Current;
 }
 
-int main()
+void Circuit1()
 {
     double E = 2.0;
 
@@ -138,5 +138,51 @@ int main()
 
     PRINTX(Check);
 
-    return 0;
+}
+
+void Circuit2()
+{
+    double V = 10.0;
+    double R1 = 1.0;
+    double R2 = 25.0;
+    double R3 = 50.0;
+    double R4 = 1.0;
+    double R5 = 30.0;
+    double R6 = 55.0;
+    double R7 = 25.0;
+    double R8 = 50.0;
+    double R9 = 1.0;
+    double R10 = 30.0;
+    double R11 = 55.0;
+
+    std::vector<std::vector<double>> A, B, Current;
+
+    A = {
+        {R1+R2+R3, -R2, -R3, 0, 0, 0},
+        {-R2, R2+R4+R5, -R4, -R5, 0, 0},
+        {-R3, -R4, R3+R4+R6, -R6, 0, 0},
+        {0, -R5, -R6, R5+R6+R7+R8, -R7, -R8},
+        {0, 0, 0, -R7, R7+R9+R10, -R9},
+        {0, 0, 0, -R8, -R9, R8+R9+R11}
+    };
+
+    B = {
+        {10},
+        {0},
+        {0},
+        {0},
+        {0},
+        {0}
+    };
+
+    Current = SolveForCurrent(A, B);
+
+
+
+    PRINTX(MMULT(A, Current));
+
+}
+
+int main(){
+    Circuit2();
 }
